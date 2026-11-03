@@ -8,186 +8,328 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..800;1,6..72,300..800&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap">
 <style>
-body{margin:0;background:#ECEBE6}
-a{color:#111111}a:hover{color:#2B3FE0}
+:root{--paper:#ECEBE6;--ink:#111111;--body:#2A2A27;--muted:#4A4A45;--hair:#B9B8B1;--accent:#2B3FE0}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Newsreader',Georgia,serif}
+a{color:var(--ink)}a:hover{color:var(--accent)}
+img,svg{max-width:100%}
+.wrap{max-width:1280px;margin:0 auto;padding:0 clamp(16px,4vw,56px)}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+.caps{text-transform:uppercase;letter-spacing:.08em}
+.muted{color:var(--muted)}
+.body{color:var(--body)}
+.accent{color:var(--accent)}
+.it{font-style:italic}
+.section{padding:clamp(56px,7vw,96px) 0;border-bottom:1px solid var(--ink)}
+.h2{margin:0;font-size:clamp(36px,4.4vw,64px);font-weight:500;letter-spacing:-.025em;line-height:1}
+.h2 .num{font-family:'JetBrains Mono',monospace;font-size:.32em;vertical-align:middle;color:var(--accent);letter-spacing:.05em;margin-right:16px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 28px;text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:14px;letter-spacing:.04em;text-transform:uppercase}
+.btn-solid{background:var(--accent);color:#fff}.btn-solid:hover{color:#fff;background:#1F2FB8}
+.btn-line{border:1.5px solid var(--ink);color:var(--ink)}
+.lang{display:inline-flex;align-items:center;gap:2px}
+.lang button{min-width:44px;min-height:36px;padding:0 10px;border:1px solid transparent;background:transparent;color:var(--muted);font:inherit;letter-spacing:inherit;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.lang button:hover{border-color:var(--ink);color:var(--ink)}
+.lang button[aria-pressed="true"]:hover{color:var(--paper)}
+.lang button:focus-visible,.btn:focus-visible,a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.svc{padding:32px 28px 32px 0}
+.svc h3{margin:0 0 16px;font-size:30px;font-weight:500;line-height:1.1;letter-spacing:-.015em}
+.svc p{margin:0 0 20px;font-size:18px;line-height:1.55}
+.svc .fit{margin:0;font-size:16px;font-style:italic;color:var(--muted)}
+.svc .tag{font-size:13px;color:var(--muted)}
+.svcs{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));border-top:1px solid var(--ink)}
+.svcs .svc + .svc{padding-left:28px;border-left:1px solid var(--hair)}
+.step{border-top:3px solid var(--ink);padding-top:20px}
+.step .n{display:block;font-size:64px;font-weight:300;line-height:1;color:var(--accent)}
+.step h3{margin:16px 0 10px;font-size:24px;font-weight:600}
+.step p{margin:0;font-size:17px;line-height:1.55;color:var(--body)}
+.pk{display:flex;flex-direction:column;gap:16px;padding:32px;border:1px solid var(--ink)}
+.pk h3{margin:0;font-size:32px;font-weight:500}
+.pk .price{margin:0;font-size:44px;font-weight:300;letter-spacing:-.02em}
+.pk p{margin:0}
+.pk .desc{font-size:17px;line-height:1.55;color:var(--body)}
+.pk .btn{margin-top:auto;min-height:48px;font-size:13px}
+.pk.dark{background:var(--ink);color:var(--paper)}
+.pk.dark .desc{color:#D6D5CE}.pk.dark .k{color:#C9C8C1}
+.field{display:flex;flex-direction:column;gap:8px}
+.field label{font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.08em}
+.field input,.field textarea{min-height:48px;padding:8px 2px;border:0;border-bottom:1.5px solid var(--ink);background:transparent;font-family:'Newsreader',serif;font-size:20px;color:var(--ink);resize:vertical}
+.drop{float:left;font-size:72px;line-height:.82;font-weight:600;padding:6px 10px 0 0;color:var(--accent)}
 </style>
-<style>html{scroll-behavior:smooth}*{box-sizing:border-box}img,svg{max-width:100%}</style>
 </head>
 <body>
-<div style="background: #ECEBE6; color: #111111; font-family: 'Newsreader', Georgia, serif; min-height: 100vh">
-<div style="max-width: 1280px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 56px)">
+<div class="wrap">
 
 <!-- MASTHEAD -->
-<header style="padding-top: 20px">
-<div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #4A4A45; padding-bottom: 12px; border-bottom: 1px solid #111111">
-<span>Vol. 01 — Análisis de datos para negocios</span>
-<span>Edición bilingüe · EN / ES</span>
+<header style="padding-top:12px">
+<div class="mono caps muted" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 24px;font-size:12px;padding-bottom:8px;border-bottom:1px solid var(--ink)">
+<span data-i18n="strip">Vol. 01 — Análisis de datos para negocios</span>
+<span style="display:inline-flex;align-items:center;gap:12px"><span data-i18n="edition">Edición bilingüe</span>
+<span class="lang" role="group" data-i18n-aria="lang_group" aria-label="Idioma">
+<button type="button" data-set-lang="en" aria-pressed="false" lang="en" aria-label="English">EN</button>
+<button type="button" data-set-lang="es" aria-pressed="true" lang="es" aria-label="Español">ES</button>
+</span></span>
 </div>
-<div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px 32px; padding: 20px 0 16px; border-bottom: 4px double #111111">
-<a href="#top" style="text-decoration: none; color: #111111; font-size: clamp(36px, 5vw, 64px); font-weight: 700; letter-spacing: -0.03em; line-height: 0.9">Batista Rivas<span style="font-style: italic; font-weight: 400; color: #2B3FE0">&amp;Datos</span></a>
-<nav aria-label="Principal" style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px 24px; font-family: 'JetBrains Mono', monospace; font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em">
-<a href="#servicios" style="text-decoration: none; padding: 12px 0">Servicios</a>
-<a href="#casos" style="text-decoration: none; padding: 12px 0">Casos</a>
-<a href="#proceso" style="text-decoration: none; padding: 12px 0">Proceso</a>
-<a href="#paquetes" style="text-decoration: none; padding: 12px 0">Paquetes</a>
-<a href="#contacto" style="text-decoration: none; padding: 12px 18px; background: #111111; color: #ECEBE6">Agenda una llamada</a>
+<div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px 32px;padding:20px 0 16px;border-bottom:4px double var(--ink)">
+<a href="#top" style="text-decoration:none;color:var(--ink);font-size:clamp(36px,5vw,64px);font-weight:700;letter-spacing:-.03em;line-height:.9">Batista Rivas<span class="it accent" style="font-weight:400">&amp;Datos</span></a>
+<nav data-i18n-aria="nav" aria-label="Principal" class="mono caps" style="display:flex;flex-wrap:wrap;align-items:center;gap:4px 24px;font-size:13px;letter-spacing:.06em">
+<a href="#servicios" style="text-decoration:none;padding:12px 0" data-i18n="nav_services">Servicios</a>
+<a href="#casos" style="text-decoration:none;padding:12px 0" data-i18n="nav_cases">Casos</a>
+<a href="#proceso" style="text-decoration:none;padding:12px 0" data-i18n="nav_process">Proceso</a>
+<a href="#paquetes" style="text-decoration:none;padding:12px 0" data-i18n="nav_packages">Paquetes</a>
+<a href="#contacto" style="text-decoration:none;padding:12px 18px;background:var(--ink);color:var(--paper)" data-i18n="nav_cta">Agenda una llamada</a>
 </nav>
 </div>
 </header>
 
 <!-- HERO -->
-<section id="top" style="display: flex; flex-wrap: wrap; gap: 48px; padding: clamp(48px, 7vw, 96px) 0 clamp(48px, 6vw, 80px); border-bottom: 1px solid #111111">
-<div style="flex: 999 1 620px; min-width: 0">
-<p style="margin: 0 0 24px; font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #2B3FE0">Portada · Análisis &amp; dashboards</p>
-<h1 style="margin: 0; font-size: clamp(48px, 7.4vw, 120px); line-height: 0.92; font-weight: 500; letter-spacing: -0.035em">Tus números ya saben qué pasa en tu negocio. <span style="font-style: italic; font-weight: 300">Yo te lo traduzco.</span></h1>
-<p style="margin: 40px 0 0; max-width: 620px; font-size: clamp(19px, 1.6vw, 23px); line-height: 1.5; color: #2A2A27">Convierto hojas de cálculo desordenadas en dashboards claros y reportes que se leen en dos minutos. Power BI, SQL, Excel y Python — con la disciplina de quien ha conciliado inventario en operaciones de alto volumen.</p>
-<div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px">
-<a href="#contacto" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 28px; background: #2B3FE0; color: #FFFFFF; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase">Cuéntame tu problema →</a>
-<a href="#casos" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 28px; border: 1.5px solid #111111; color: #111111; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase">Ver portafolio</a>
+<section id="top" style="display:flex;flex-wrap:wrap;gap:48px;padding:clamp(48px,7vw,96px) 0 clamp(48px,6vw,80px);border-bottom:1px solid var(--ink)">
+<div style="flex:999 1 620px;min-width:0">
+<p class="mono caps accent" style="margin:0 0 24px;font-size:13px" data-i18n="hero_kicker">Portada · Análisis &amp; dashboards</p>
+<h1 style="margin:0;font-size:clamp(48px,7.4vw,120px);line-height:.92;font-weight:500;letter-spacing:-.035em" data-i18n="hero_h1">Tus números ya saben qué pasa en tu negocio. <span class="it" style="font-weight:300">Yo te lo traduzco.</span></h1>
+<p class="body" style="margin:40px 0 0;max-width:620px;font-size:clamp(19px,1.6vw,23px);line-height:1.5" data-i18n="hero_p">Convierto hojas de cálculo desordenadas en dashboards claros y reportes que se leen en dos minutos. Power BI, SQL, Excel y Python — con la disciplina de quien ha conciliado inventario en operaciones de alto volumen.</p>
+<div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:40px">
+<a href="#contacto" class="btn btn-solid" data-i18n="hero_cta1">Cuéntame tu problema →</a>
+<a href="#casos" class="btn btn-line" data-i18n="hero_cta2">Ver portafolio</a>
 </div>
 </div>
-<aside aria-label="En esta edición" style="flex: 1 1 260px; min-width: 0; border-left: 1px solid #111111; padding-left: 28px; align-self: flex-end">
-<p style="margin: 0 0 16px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #4A4A45">En esta edición</p>
-<ol style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0">
-<li style="display: flex; gap: 14px; padding: 14px 0; border-top: 1px solid #B9B8B1"><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #2B3FE0">I</span><a href="#servicios" style="text-decoration: none; font-size: 19px">Lo que hago, sin jerga</a></li>
-<li style="display: flex; gap: 14px; padding: 14px 0; border-top: 1px solid #B9B8B1"><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #2B3FE0">II</span><a href="#casos" style="text-decoration: none; font-size: 19px">Caso: ventas e-commerce</a></li>
-<li style="display: flex; gap: 14px; padding: 14px 0; border-top: 1px solid #B9B8B1"><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #2B3FE0">III</span><a href="#proceso" style="text-decoration: none; font-size: 19px">Cómo trabajamos</a></li>
-<li style="display: flex; gap: 14px; padding: 14px 0; border-top: 1px solid #B9B8B1; border-bottom: 1px solid #B9B8B1"><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #2B3FE0">IV</span><a href="#paquetes" style="text-decoration: none; font-size: 19px">Paquetes y precios</a></li>
+<aside data-i18n-aria="toc_aria" aria-label="En esta edición" style="flex:1 1 260px;min-width:0;border-left:1px solid var(--ink);padding-left:28px;align-self:flex-end">
+<p class="mono caps muted" style="margin:0 0 16px;font-size:12px" data-i18n="toc_title">En esta edición</p>
+<ol style="margin:0;padding:0;list-style:none">
+<li style="display:flex;gap:14px;padding:14px 0;border-top:1px solid var(--hair)"><span class="mono accent" style="font-size:13px">I</span><a href="#servicios" style="text-decoration:none;font-size:19px" data-i18n="s1_title">Lo que hago, sin jerga</a></li>
+<li style="display:flex;gap:14px;padding:14px 0;border-top:1px solid var(--hair)"><span class="mono accent" style="font-size:13px">II</span><a href="#casos" style="text-decoration:none;font-size:19px" data-i18n="toc2">Caso: ventas e-commerce</a></li>
+<li style="display:flex;gap:14px;padding:14px 0;border-top:1px solid var(--hair)"><span class="mono accent" style="font-size:13px">III</span><a href="#proceso" style="text-decoration:none;font-size:19px" data-i18n="s3_title">Cómo trabajamos</a></li>
+<li style="display:flex;gap:14px;padding:14px 0;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)"><span class="mono accent" style="font-size:13px">IV</span><a href="#paquetes" style="text-decoration:none;font-size:19px" data-i18n="toc4">Paquetes y precios</a></li>
 </ol>
-<p style="margin: 20px 0 0; font-size: 16px; font-style: italic; color: #4A4A45">Por Frank Batista Rivas, analista de datos.</p>
+<p class="it muted" style="margin:20px 0 0;font-size:16px" data-i18n="byline">Por Frank Batista Rivas, analista de datos.</p>
 </aside>
 </section>
 
 <!-- I. SERVICIOS -->
-<section id="servicios" style="padding: clamp(56px, 7vw, 96px) 0; border-bottom: 1px solid #111111">
-<div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px 32px; margin-bottom: 48px">
-<h2 style="margin: 0; font-size: clamp(36px, 4.4vw, 64px); font-weight: 500; letter-spacing: -0.025em; line-height: 1"><span style="font-family: 'JetBrains Mono', monospace; font-size: 0.32em; vertical-align: middle; color: #2B3FE0; letter-spacing: 0.05em; margin-right: 16px">I.</span>Lo que hago, sin jerga</h2>
-<p style="margin: 0; max-width: 420px; font-size: 18px; line-height: 1.5; color: #2A2A27">Tres servicios. Cada uno termina en algo que puedes abrir el lunes por la mañana y usar.</p>
+<section id="servicios" class="section">
+<div style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px 32px;margin-bottom:48px">
+<h2 class="h2"><span class="num">I.</span><span data-i18n="s1_title">Lo que hago, sin jerga</span></h2>
+<p class="body" style="margin:0;max-width:420px;font-size:18px;line-height:1.5" data-i18n="s1_dek">Tres servicios. Cada uno termina en algo que puedes abrir el lunes por la mañana y usar.</p>
 </div>
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 0; border-top: 1px solid #111111">
-<article style="padding: 32px 28px 32px 0; border-right: 1px solid #B9B8B1">
-<p style="margin: 0 0 20px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #4A4A45">01 / Power BI</p>
-<h3 style="margin: 0 0 16px; font-size: 30px; font-weight: 500; line-height: 1.1; letter-spacing: -0.015em">Dashboards que responden preguntas</h3>
-<p style="margin: 0 0 20px; font-size: 18px; line-height: 1.55; color: #2A2A27">Ventas, inventario, márgenes, clientes. Diseñados alrededor de las tres preguntas que te haces cada semana, no de todos los gráficos posibles.</p>
-<p style="margin: 0; font-size: 16px; font-style: italic; color: #4A4A45">Ideal si hoy armas el reporte a mano cada viernes.</p>
+<div class="svcs">
+<article class="svc">
+<p class="mono tag">01 / Power BI</p>
+<h3 data-i18n="svc1_h">Dashboards que responden preguntas</h3>
+<p class="body" data-i18n="svc1_p">Ventas, inventario, márgenes, clientes. Diseñados alrededor de las tres preguntas que te haces cada semana, no de todos los gráficos posibles.</p>
+<p class="fit" data-i18n="svc1_fit">Ideal si hoy armas el reporte a mano cada viernes.</p>
 </article>
-<article style="padding: 32px 28px; border-right: 1px solid #B9B8B1">
-<p style="margin: 0 0 20px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #4A4A45">02 / Excel · SQL</p>
-<h3 style="margin: 0 0 16px; font-size: 30px; font-weight: 500; line-height: 1.1; letter-spacing: -0.015em">Limpieza y conciliación de datos</h3>
-<p style="margin: 0 0 20px; font-size: 18px; line-height: 1.55; color: #2A2A27">Duplicados, códigos que no cuadran, sistemas que no se hablan. Encuentro dónde se rompe el número y dejo un proceso para que no vuelva a pasar.</p>
-<p style="margin: 0; font-size: 16px; font-style: italic; color: #4A4A45">Ideal si tus totales no coinciden entre sistemas.</p>
+<article class="svc">
+<p class="mono tag">02 / Excel · SQL</p>
+<h3 data-i18n="svc2_h">Limpieza y conciliación de datos</h3>
+<p class="body" data-i18n="svc2_p">Duplicados, códigos que no cuadran, sistemas que no se hablan. Encuentro dónde se rompe el número y dejo un proceso para que no vuelva a pasar.</p>
+<p class="fit" data-i18n="svc2_fit">Ideal si tus totales no coinciden entre sistemas.</p>
 </article>
-<article style="padding: 32px 0 32px 28px">
-<p style="margin: 0 0 20px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #4A4A45">03 / Python · KPIs</p>
-<h3 style="margin: 0 0 16px; font-size: 30px; font-weight: 500; line-height: 1.1; letter-spacing: -0.015em">Métricas que se pueden defender</h3>
-<p style="margin: 0 0 20px; font-size: 18px; line-height: 1.55; color: #2A2A27">Definimos juntos qué se mide y cómo. Reportes automatizados con definiciones escritas, para que nadie discuta el número — sólo qué hacer con él.</p>
-<p style="margin: 0; font-size: 16px; font-style: italic; color: #4A4A45">Ideal si cada área calcula “ventas” distinto.</p>
+<article class="svc">
+<p class="mono tag">03 / Python · KPIs</p>
+<h3 data-i18n="svc3_h">Métricas que se pueden defender</h3>
+<p class="body" data-i18n="svc3_p">Definimos juntos qué se mide y cómo. Reportes automatizados con definiciones escritas, para que nadie discuta el número — sólo qué hacer con él.</p>
+<p class="fit" data-i18n="svc3_fit">Ideal si cada área calcula “ventas” distinto.</p>
 </article>
 </div>
 </section>
 
 <!-- II. CASO -->
-<section id="casos" style="padding: clamp(56px, 7vw, 96px) 0; border-bottom: 1px solid #111111">
-<h2 style="margin: 0 0 48px; font-size: clamp(36px, 4.4vw, 64px); font-weight: 500; letter-spacing: -0.025em; line-height: 1"><span style="font-family: 'JetBrains Mono', monospace; font-size: 0.32em; vertical-align: middle; color: #2B3FE0; letter-spacing: 0.05em; margin-right: 16px">II.</span>Caso de estudio</h2>
-<div style="display: flex; flex-wrap: wrap; gap: 48px">
-<figure style="flex: 999 1 560px; min-width: 0; margin: 0">
-<div style="background: #111111; padding: clamp(20px, 3vw, 36px)">
-<div style="display: flex; justify-content: space-between; gap: 12px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #C9C8C1; padding-bottom: 16px; border-bottom: 1px solid #3A3A37">
-<span>Ventas por mes · Categoría</span><span>Datos sintéticos</span>
+<section id="casos" class="section">
+<h2 class="h2" style="margin-bottom:48px"><span class="num">II.</span><span data-i18n="s2_title">Caso de estudio</span></h2>
+<div style="display:flex;flex-wrap:wrap;gap:48px">
+<figure style="flex:999 1 560px;min-width:0;margin:0">
+<div style="background:var(--ink);padding:clamp(20px,3vw,36px)">
+<div class="mono caps" style="display:flex;justify-content:space-between;gap:12px;font-size:12px;letter-spacing:.06em;color:#C9C8C1;padding-bottom:16px;border-bottom:1px solid #3A3A37">
+<span data-i18n="fig_head">Ventas por mes · Categoría</span><span data-i18n="fig_synth">Datos sintéticos</span>
 </div>
-<svg viewBox="0 0 600 260" role="img" aria-label="Ilustración de un dashboard de ventas mensuales con barras y línea de tendencia, hecha con datos sintéticos" style="display: block; width: 100%; height: auto; margin-top: 20px">
-<g fill="#3A3A37"><rect x="20" y="150" width="30" height="90"></rect><rect x="68" y="130" width="30" height="110"></rect><rect x="116" y="160" width="30" height="80"></rect><rect x="164" y="110" width="30" height="130"></rect><rect x="212" y="120" width="30" height="120"></rect><rect x="260" y="95" width="30" height="145"></rect><rect x="308" y="105" width="30" height="135"></rect><rect x="356" y="80" width="30" height="160"></rect><rect x="404" y="70" width="30" height="170"></rect><rect x="452" y="88" width="30" height="152"></rect><rect x="500" y="55" width="30" height="185"></rect></g>
-<rect x="548" y="40" width="30" height="200" fill="#2B3FE0"></rect>
-<polyline points="35,140 83,128 131,138 179,112 227,110 275,96 323,94 371,80 419,70 467,74 515,56 563,40" fill="none" stroke="#ECEBE6" stroke-width="2"></polyline>
-<line x1="10" y1="240.5" x2="590" y2="240.5" stroke="#6A6A65"></line>
+<svg viewBox="0 0 600 260" role="img" data-i18n-aria="fig_aria" aria-label="Ilustración de un dashboard de ventas mensuales con barras y línea de tendencia, hecha con datos sintéticos" style="display:block;width:100%;height:auto;margin-top:20px">
+<g fill="#3A3A37"><rect x="20" y="150" width="30" height="90"/><rect x="68" y="130" width="30" height="110"/><rect x="116" y="160" width="30" height="80"/><rect x="164" y="110" width="30" height="130"/><rect x="212" y="120" width="30" height="120"/><rect x="260" y="95" width="30" height="145"/><rect x="308" y="105" width="30" height="135"/><rect x="356" y="80" width="30" height="160"/><rect x="404" y="70" width="30" height="170"/><rect x="452" y="88" width="30" height="152"/><rect x="500" y="55" width="30" height="185"/></g>
+<rect x="548" y="40" width="30" height="200" fill="#2B3FE0"/>
+<polyline points="35,140 83,128 131,138 179,112 227,110 275,96 323,94 371,80 419,70 467,74 515,56 563,40" fill="none" stroke="#ECEBE6" stroke-width="2"/>
+<line x1="10" y1="240.5" x2="590" y2="240.5" stroke="#6A6A65"/>
 </svg>
 </div>
-<figcaption style="margin-top: 12px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #4A4A45">Figura 1 — Vista ilustrativa del dashboard. El proyecto real está publicado en el portafolio.</figcaption>
+<figcaption class="mono muted" style="margin-top:12px;font-size:12px" data-i18n="fig_cap">Figura 1 — Vista ilustrativa del dashboard. El proyecto real está publicado en el portafolio.</figcaption>
 </figure>
-<div style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
-<p style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #2B3FE0">Proyecto de portafolio</p>
-<h3 style="margin: 0; font-size: clamp(30px, 3vw, 42px); font-weight: 500; line-height: 1.05; letter-spacing: -0.02em">E-Commerce Sales Analytics Dashboard</h3>
-<p style="margin: 0; font-size: 19px; line-height: 1.55; color: #2A2A27"><span style="float: left; font-size: 72px; line-height: 0.82; font-weight: 600; padding: 6px 10px 0 0; color: #2B3FE0">U</span>na tienda en línea necesita saber qué vende, a quién y cuándo. Este dashboard cruza pedidos, productos y clientes para responder eso en una sola vista — desde la limpieza de datos hasta las métricas finales.</p>
-<dl style="margin: 8px 0 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; border-top: 1px solid #111111">
-<div style="padding: 14px 12px 14px 0; border-bottom: 1px solid #B9B8B1"><dt style="font-family: 'JetBrains Mono', monospace; font-size: 12px; text-transform: uppercase; color: #4A4A45">Herramientas</dt><dd style="margin: 4px 0 0; font-size: 17px">[HERRAMIENTAS USADAS]</dd></div>
-<div style="padding: 14px 0 14px 12px; border-bottom: 1px solid #B9B8B1"><dt style="font-family: 'JetBrains Mono', monospace; font-size: 12px; text-transform: uppercase; color: #4A4A45">Datos</dt><dd style="margin: 4px 0 0; font-size: 17px">Sintéticos</dd></div>
+<div style="flex:1 1 340px;min-width:0;display:flex;flex-direction:column;gap:20px">
+<p class="mono caps accent" style="margin:0;font-size:13px" data-i18n="case_kicker">Proyecto de portafolio</p>
+<h3 style="margin:0;font-size:clamp(30px,3vw,42px);font-weight:500;line-height:1.05;letter-spacing:-.02em">E-Commerce Sales Analytics Dashboard</h3>
+<p class="body" style="margin:0;font-size:19px;line-height:1.55" data-i18n="case_p"><span class="drop">U</span>na tienda en línea necesita saber qué vende, a quién y cuándo. Este dashboard cruza pedidos, productos y clientes para responder eso en una sola vista — desde la limpieza de datos hasta las métricas finales.</p>
+<dl style="margin:8px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid var(--ink)">
+<div style="padding:14px 12px 14px 0;border-bottom:1px solid var(--hair)"><dt class="mono muted" style="font-size:12px;text-transform:uppercase" data-i18n="dt_tools">Herramientas</dt><dd style="margin:4px 0 0;font-size:17px" data-i18n="dd_tools">[HERRAMIENTAS USADAS]</dd></div>
+<div style="padding:14px 0 14px 12px;border-bottom:1px solid var(--hair)"><dt class="mono muted" style="font-size:12px;text-transform:uppercase" data-i18n="dt_data">Datos</dt><dd style="margin:4px 0 0;font-size:17px" data-i18n="dd_data">Sintéticos</dd></div>
 </dl>
-<a href="https://drakolino.github.io" style="font-family: 'JetBrains Mono', monospace; font-size: 14px; text-transform: uppercase; letter-spacing: 0.04em; padding: 12px 0">Ver el portafolio completo →</a>
+<a href="https://drakolino.github.io" class="mono caps" style="font-size:14px;letter-spacing:.04em;padding:12px 0" data-i18n="case_link">Ver el portafolio completo →</a>
 </div>
 </div>
 </section>
 
-<!-- PULL QUOTE -->
-<section style="padding: clamp(56px, 8vw, 112px) 0; border-bottom: 1px solid #111111; text-align: center">
-<p style="margin: 0 auto; max-width: 980px; font-size: clamp(34px, 4.6vw, 68px); line-height: 1.08; font-style: italic; font-weight: 300; letter-spacing: -0.02em">“Un dashboard que nadie entiende es sólo decoración.”</p>
-<p style="margin: 28px 0 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: #4A4A45">Principio de trabajo Nº 1</p>
+<!-- CITA -->
+<section class="section" style="text-align:center;padding:clamp(56px,8vw,112px) 0">
+<p class="it" style="margin:0 auto;max-width:980px;font-size:clamp(34px,4.6vw,68px);line-height:1.08;font-weight:300;letter-spacing:-.02em" data-i18n="quote">“Un dashboard que nadie entiende es sólo decoración.”</p>
+<p class="mono caps muted" style="margin:28px 0 0;font-size:13px;letter-spacing:.1em" data-i18n="quote_src">Principio de trabajo Nº 1</p>
 </section>
 
 <!-- III. PROCESO -->
-<section id="proceso" style="padding: clamp(56px, 7vw, 96px) 0; border-bottom: 1px solid #111111">
-<h2 style="margin: 0 0 48px; font-size: clamp(36px, 4.4vw, 64px); font-weight: 500; letter-spacing: -0.025em; line-height: 1"><span style="font-family: 'JetBrains Mono', monospace; font-size: 0.32em; vertical-align: middle; color: #2B3FE0; letter-spacing: 0.05em; margin-right: 16px">III.</span>Cómo trabajamos</h2>
-<ol style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 32px">
-<li style="border-top: 3px solid #111111; padding-top: 20px"><span style="display: block; font-size: 64px; font-weight: 300; line-height: 1; color: #2B3FE0">01</span><h3 style="margin: 16px 0 10px; font-size: 24px; font-weight: 600">Diagnóstico</h3><p style="margin: 0; font-size: 17px; line-height: 1.55; color: #2A2A27">Una llamada para entender qué decisión quieres tomar y qué datos tienes hoy.</p></li>
-<li style="border-top: 3px solid #111111; padding-top: 20px"><span style="display: block; font-size: 64px; font-weight: 300; line-height: 1; color: #2B3FE0">02</span><h3 style="margin: 16px 0 10px; font-size: 24px; font-weight: 600">Datos en orden</h3><p style="margin: 0; font-size: 17px; line-height: 1.55; color: #2A2A27">Reviso, limpio y concilio las fuentes. Te digo qué encontré antes de construir nada.</p></li>
-<li style="border-top: 3px solid #111111; padding-top: 20px"><span style="display: block; font-size: 64px; font-weight: 300; line-height: 1; color: #2B3FE0">03</span><h3 style="margin: 16px 0 10px; font-size: 24px; font-weight: 600">Construcción</h3><p style="margin: 0; font-size: 17px; line-height: 1.55; color: #2A2A27">Avances cortos y revisables. Ajustamos sobre algo real, no sobre un documento.</p></li>
-<li style="border-top: 3px solid #111111; padding-top: 20px"><span style="display: block; font-size: 64px; font-weight: 300; line-height: 1; color: #2B3FE0">04</span><h3 style="margin: 16px 0 10px; font-size: 24px; font-weight: 600">Entrega y manual</h3><p style="margin: 0; font-size: 17px; line-height: 1.55; color: #2A2A27">Te quedas con el archivo, las definiciones de cada métrica y una sesión para usarlo.</p></li>
+<section id="proceso" class="section">
+<h2 class="h2" style="margin-bottom:48px"><span class="num">III.</span><span data-i18n="s3_title">Cómo trabajamos</span></h2>
+<ol style="margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:32px">
+<li class="step"><span class="n">01</span><h3 data-i18n="p1_h">Diagnóstico</h3><p data-i18n="p1_p">Una llamada para entender qué decisión quieres tomar y qué datos tienes hoy.</p></li>
+<li class="step"><span class="n">02</span><h3 data-i18n="p2_h">Datos en orden</h3><p data-i18n="p2_p">Reviso, limpio y concilio las fuentes. Te digo qué encontré antes de construir nada.</p></li>
+<li class="step"><span class="n">03</span><h3 data-i18n="p3_h">Construcción</h3><p data-i18n="p3_p">Avances cortos y revisables. Ajustamos sobre algo real, no sobre un documento.</p></li>
+<li class="step"><span class="n">04</span><h3 data-i18n="p4_h">Entrega y manual</h3><p data-i18n="p4_p">Te quedas con el archivo, las definiciones de cada métrica y una sesión para usarlo.</p></li>
 </ol>
 </section>
 
 <!-- IV. PAQUETES -->
-<section id="paquetes" style="padding: clamp(56px, 7vw, 96px) 0; border-bottom: 1px solid #111111">
-<h2 style="margin: 0 0 48px; font-size: clamp(36px, 4.4vw, 64px); font-weight: 500; letter-spacing: -0.025em; line-height: 1"><span style="font-family: 'JetBrains Mono', monospace; font-size: 0.32em; vertical-align: middle; color: #2B3FE0; letter-spacing: 0.05em; margin-right: 16px">IV.</span>Paquetes</h2>
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px">
-<article style="display: flex; flex-direction: column; gap: 16px; padding: 32px; border: 1px solid #111111">
-<p style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; color: #4A4A45">Para empezar</p>
-<h3 style="margin: 0; font-size: 32px; font-weight: 500">Auditoría de datos</h3>
-<p style="margin: 0; font-size: 44px; font-weight: 300; letter-spacing: -0.02em">[TU PRECIO]</p>
-<p style="margin: 0; font-size: 17px; line-height: 1.55; color: #2A2A27">Revisión de tus fuentes, lista de problemas encontrados y recomendaciones priorizadas.</p>
-<a href="#contacto" style="margin-top: auto; display: inline-flex; justify-content: center; align-items: center; min-height: 48px; border: 1.5px solid #111111; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em">Solicitar</a>
+<section id="paquetes" class="section">
+<h2 class="h2" style="margin-bottom:48px"><span class="num">IV.</span><span data-i18n="s4_title">Paquetes</span></h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px">
+<article class="pk">
+<p class="mono caps muted k" style="font-size:13px;letter-spacing:.06em" data-i18n="pk1_k">Para empezar</p>
+<h3 data-i18n="pk1_h">Auditoría de datos</h3>
+<p class="price" data-i18n="price">[TU PRECIO]</p>
+<p class="desc" data-i18n="pk1_p">Revisión de tus fuentes, lista de problemas encontrados y recomendaciones priorizadas.</p>
+<a href="#contacto" class="btn btn-line" data-i18n="request">Solicitar</a>
 </article>
-<article style="display: flex; flex-direction: column; gap: 16px; padding: 32px; background: #111111; color: #ECEBE6">
-<p style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; color: #C9C8C1">El más pedido</p>
-<h3 style="margin: 0; font-size: 32px; font-weight: 500">Dashboard a medida</h3>
-<p style="margin: 0; font-size: 44px; font-weight: 300; letter-spacing: -0.02em">[TU PRECIO]</p>
-<p style="margin: 0; font-size: 17px; line-height: 1.55; color: #D6D5CE">Un dashboard en Power BI con tus datos, definiciones de métricas y una sesión de entrega.</p>
-<a href="#contacto" style="margin-top: auto; display: inline-flex; justify-content: center; align-items: center; min-height: 48px; background: #2B3FE0; color: #FFFFFF; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em">Solicitar</a>
+<article class="pk dark">
+<p class="mono caps k" style="font-size:13px;letter-spacing:.06em" data-i18n="pk2_k">El más pedido</p>
+<h3 data-i18n="pk2_h">Dashboard a medida</h3>
+<p class="price" data-i18n="price">[TU PRECIO]</p>
+<p class="desc" data-i18n="pk2_p">Un dashboard en Power BI con tus datos, definiciones de métricas y una sesión de entrega.</p>
+<a href="#contacto" class="btn btn-solid" data-i18n="request">Solicitar</a>
 </article>
-<article style="display: flex; flex-direction: column; gap: 16px; padding: 32px; border: 1px solid #111111">
-<p style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; color: #4A4A45">Continuo</p>
-<h3 style="margin: 0; font-size: 32px; font-weight: 500">Analista mensual</h3>
-<p style="margin: 0; font-size: 44px; font-weight: 300; letter-spacing: -0.02em">[TU PRECIO]<span style="font-size: 18px; color: #4A4A45"> /mes</span></p>
-<p style="margin: 0; font-size: 17px; line-height: 1.55; color: #2A2A27">Reportes recurrentes, mantenimiento del dashboard y [HORAS INCLUIDAS] de análisis a pedido.</p>
-<a href="#contacto" style="margin-top: auto; display: inline-flex; justify-content: center; align-items: center; min-height: 48px; border: 1.5px solid #111111; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em">Solicitar</a>
+<article class="pk">
+<p class="mono caps muted k" style="font-size:13px;letter-spacing:.06em" data-i18n="pk3_k">Continuo</p>
+<h3 data-i18n="pk3_h">Analista mensual</h3>
+<p class="price"><span data-i18n="price">[TU PRECIO]</span><span class="muted" style="font-size:18px" data-i18n="per_month"> /mes</span></p>
+<p class="desc" data-i18n="pk3_p">Reportes recurrentes, mantenimiento del dashboard y [HORAS INCLUIDAS] de análisis a pedido.</p>
+<a href="#contacto" class="btn btn-line" data-i18n="request">Solicitar</a>
 </article>
 </div>
 </section>
 
 <!-- CONTACTO -->
-<section id="contacto" style="display: flex; flex-wrap: wrap; gap: 56px; padding: clamp(56px, 7vw, 112px) 0">
-<div style="flex: 1 1 380px; min-width: 0">
-<h2 style="margin: 0; font-size: clamp(44px, 6vw, 96px); font-weight: 500; letter-spacing: -0.035em; line-height: 0.95">Escríbeme. <span style="font-style: italic; font-weight: 300; color: #2B3FE0">Respondo en español o inglés.</span></h2>
-<p style="margin: 28px 0 0; max-width: 460px; font-size: 19px; line-height: 1.55; color: #2A2A27">Cuéntame qué número te quita el sueño. Si no puedo ayudarte, te lo digo en la primera respuesta.</p>
-<ul style="margin: 32px 0 0; padding: 0; list-style: none; font-family: 'JetBrains Mono', monospace; font-size: 14px; display: flex; flex-direction: column; gap: 4px">
-<li><a href="mailto:[TU EMAIL]" style="display: inline-block; padding: 10px 0">[TU EMAIL]</a></li>
-<li><a href="[LINK UPWORK]" style="display: inline-block; padding: 10px 0">Perfil en Upwork →</a></li>
-<li><a href="https://drakolino.github.io" style="display: inline-block; padding: 10px 0">drakolino.github.io →</a></li>
+<section id="contacto" style="display:flex;flex-wrap:wrap;gap:56px;padding:clamp(56px,7vw,112px) 0">
+<div style="flex:1 1 380px;min-width:0">
+<h2 style="margin:0;font-size:clamp(44px,6vw,96px);font-weight:500;letter-spacing:-.035em;line-height:.95" data-i18n="contact_h">Escríbeme. <span class="it accent" style="font-weight:300">Respondo en español o inglés.</span></h2>
+<p class="body" style="margin:28px 0 0;max-width:460px;font-size:19px;line-height:1.55" data-i18n="contact_p">Cuéntame qué número te quita el sueño. Si no puedo ayudarte, te lo digo en la primera respuesta.</p>
+<ul class="mono" style="margin:32px 0 0;padding:0;list-style:none;font-size:14px;display:flex;flex-direction:column;gap:4px">
+<li><a href="mailto:[TU EMAIL]" style="display:inline-block;padding:10px 0" data-i18n="email">[TU EMAIL]</a></li>
+<li><a href="[LINK UPWORK]" style="display:inline-block;padding:10px 0" data-i18n="upwork">Perfil en Upwork →</a></li>
+<li><a href="https://drakolino.github.io" style="display:inline-block;padding:10px 0">drakolino.github.io →</a></li>
 </ul>
 </div>
-<form aria-label="Formulario de contacto" style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 24px; border-top: 4px double #111111; padding-top: 28px">
-<div style="display: flex; flex-direction: column; gap: 8px"><label for="c-nombre" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em">Nombre</label><input id="c-nombre" type="text" autocomplete="name" style="min-height: 48px; padding: 0 2px; border: 0; border-bottom: 1.5px solid #111111; background: transparent; font-family: 'Newsreader', serif; font-size: 20px; color: #111111"></div>
-<div style="display: flex; flex-direction: column; gap: 8px"><label for="c-email" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em">Email</label><input id="c-email" type="email" autocomplete="email" style="min-height: 48px; padding: 0 2px; border: 0; border-bottom: 1.5px solid #111111; background: transparent; font-family: 'Newsreader', serif; font-size: 20px; color: #111111"></div>
-<div style="display: flex; flex-direction: column; gap: 8px"><label for="c-msg" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em">¿Qué necesitas saber de tus datos?</label><textarea id="c-msg" rows="4" style="padding: 8px 2px; border: 0; border-bottom: 1.5px solid #111111; background: transparent; font-family: 'Newsreader', serif; font-size: 20px; color: #111111; resize: vertical"></textarea></div>
-<button type="button" style="align-self: flex-start; min-height: 52px; padding: 0 32px; border: 0; background: #111111; color: #ECEBE6; font-family: 'JetBrains Mono', monospace; font-size: 14px; text-transform: uppercase; letter-spacing: 0.06em; cursor: pointer">Enviar mensaje</button>
+<form data-i18n-aria="form_aria" aria-label="Formulario de contacto" style="flex:1 1 420px;min-width:0;display:flex;flex-direction:column;gap:24px;border-top:4px double var(--ink);padding-top:28px">
+<div class="field"><label for="c-nombre" data-i18n="f_name">Nombre</label><input id="c-nombre" type="text" autocomplete="name"></div>
+<div class="field"><label for="c-email">Email</label><input id="c-email" type="email" autocomplete="email"></div>
+<div class="field"><label for="c-msg" data-i18n="f_msg">¿Qué necesitas saber de tus datos?</label><textarea id="c-msg" rows="4"></textarea></div>
+<button type="button" class="btn" style="align-self:flex-start;border:0;background:var(--ink);color:var(--paper);cursor:pointer;padding:0 32px" data-i18n="f_send">Enviar mensaje</button>
 </form>
 </section>
 
-<!-- COLOFÓN -->
-<footer style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; padding: 20px 0 32px; border-top: 1px solid #111111; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #4A4A45">
+<footer class="mono caps muted" style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;padding:20px 0 32px;border-top:1px solid var(--ink);font-size:12px;letter-spacing:.06em">
 <span>© 2026 Frank Batista Rivas</span>
-<span>Compuesto en Newsreader &amp; JetBrains Mono</span>
+<span data-i18n="foot">Compuesto en Newsreader &amp; JetBrains Mono</span>
 </footer>
 
 </div>
-</div>
+
+<script>
+(function () {
+  var EN = {
+    strip: 'Vol. 01 — Data analysis for business',
+    edition: 'Bilingual edition',
+    nav_services: 'Services', nav_cases: 'Work', nav_process: 'Process', nav_packages: 'Packages', nav_cta: 'Book a call',
+    hero_kicker: 'Front page · Analysis &amp; dashboards',
+    hero_h1: 'Your numbers already know what’s happening in your business. <span class="it" style="font-weight:300">I translate them for you.</span>',
+    hero_p: 'I turn messy spreadsheets into clear dashboards and reports you can read in two minutes. Power BI, SQL, Excel and Python — with the discipline of someone who has reconciled inventory in high-volume operations.',
+    hero_cta1: 'Tell me your problem →', hero_cta2: 'See portfolio',
+    toc_title: 'In this edition', toc2: 'Case: e-commerce sales', toc4: 'Packages &amp; pricing',
+    byline: 'By Frank Batista Rivas, data analyst.',
+    s1_title: 'What I do, no jargon',
+    s1_dek: 'Three services. Each one ends in something you can open on Monday morning and use.',
+    svc1_h: 'Dashboards that answer questions',
+    svc1_p: 'Sales, inventory, margins, customers. Built around the three questions you ask every week, not every chart possible.',
+    svc1_fit: 'Ideal if you build the report by hand every Friday.',
+    svc2_h: 'Data cleaning &amp; reconciliation',
+    svc2_p: 'Duplicates, codes that don’t match, systems that don’t talk to each other. I find where the number breaks and leave a process so it doesn’t happen again.',
+    svc2_fit: 'Ideal if your totals don’t match across systems.',
+    svc3_h: 'Metrics you can defend',
+    svc3_p: 'We define together what gets measured and how. Automated reports with written definitions, so nobody argues about the number — only about what to do with it.',
+    svc3_fit: 'Ideal if every team calculates “sales” differently.',
+    s2_title: 'Case study',
+    fig_head: 'Sales by month · Category', fig_synth: 'Synthetic data',
+    fig_cap: 'Figure 1 — Illustrative view of the dashboard. The real project is published in the portfolio.',
+    case_kicker: 'Portfolio project',
+    case_p: '<span class="drop">A</span>n online store needs to know what it sells, to whom and when. This dashboard combines orders, products and customers to answer that in a single view — from data cleaning to the final metrics.',
+    dt_tools: 'Tools', dd_tools: '[TOOLS USED]', dt_data: 'Data', dd_data: 'Synthetic',
+    case_link: 'See the full portfolio →',
+    quote: '“A dashboard nobody understands is just decoration.”',
+    quote_src: 'Working principle No. 1',
+    s3_title: 'How we work',
+    p1_h: 'Discovery', p1_p: 'A call to understand what decision you want to make and what data you have today.',
+    p2_h: 'Data in order', p2_p: 'I review, clean and reconcile the sources. I tell you what I found before building anything.',
+    p3_h: 'Build', p3_p: 'Short, reviewable iterations. We adjust on something real, not on a document.',
+    p4_h: 'Handoff &amp; guide', p4_p: 'You keep the file, the definition of every metric and a session to learn how to use it.',
+    s4_title: 'Packages',
+    pk1_k: 'To start', pk1_h: 'Data audit',
+    pk1_p: 'A review of your sources, a list of the issues found and prioritized recommendations.',
+    pk2_k: 'Most requested', pk2_h: 'Custom dashboard',
+    pk2_p: 'A Power BI dashboard with your data, metric definitions and a handoff session.',
+    pk3_k: 'Ongoing', pk3_h: 'Monthly analyst',
+    pk3_p: 'Recurring reports, dashboard maintenance and [HOURS INCLUDED] of on-demand analysis.',
+    price: '[YOUR PRICE]', per_month: ' /month', request: 'Request',
+    contact_h: 'Write to me. <span class="it accent" style="font-weight:300">I reply in English or Spanish.</span>',
+    contact_p: 'Tell me which number keeps you up at night. If I can’t help, I’ll say so in my first reply.',
+    email: '[YOUR EMAIL]', upwork: 'Upwork profile →',
+    f_name: 'Name', f_msg: 'What do you need to know from your data?', f_send: 'Send message',
+    foot: 'Set in Newsreader &amp; JetBrains Mono',
+    lang_group: 'Language', nav: 'Main', toc_aria: 'In this edition', form_aria: 'Contact form',
+    fig_aria: 'Illustration of a monthly sales dashboard with bars and a trend line, made with synthetic data',
+    _title: 'Frank Batista Rivas — Data analysis',
+    _desc: 'Power BI dashboards, data cleaning and reconciliation, and KPI reports. Bilingual service in English / Spanish.'
+  };
+
+  var meta = document.querySelector('meta[name="description"]');
+  var ES = { _title: document.title, _desc: meta.getAttribute('content') };
+  document.querySelectorAll('[data-i18n]').forEach(function (el) {
+    var k = el.getAttribute('data-i18n'); if (!(k in ES)) ES[k] = el.innerHTML;
+  });
+  document.querySelectorAll('[data-i18n-aria]').forEach(function (el) {
+    var k = el.getAttribute('data-i18n-aria'); if (!(k in ES)) ES[k] = el.getAttribute('aria-label');
+  });
+
+  function setLang(lang, save) {
+    var d = lang === 'en' ? EN : ES;
+    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      var v = d[el.getAttribute('data-i18n')]; if (v != null) el.innerHTML = v;
+    });
+    document.querySelectorAll('[data-i18n-aria]').forEach(function (el) {
+      var v = d[el.getAttribute('data-i18n-aria')]; if (v != null) el.setAttribute('aria-label', v);
+    });
+    document.documentElement.lang = lang;
+    document.title = d._title;
+    meta.setAttribute('content', d._desc);
+    document.querySelectorAll('[data-set-lang]').forEach(function (b) {
+      b.setAttribute('aria-pressed', String(b.getAttribute('data-set-lang') === lang));
+    });
+    if (save) { try { localStorage.setItem('lang', lang); } catch (e) {} }
+  }
+
+  document.querySelectorAll('[data-set-lang]').forEach(function (b) {
+    b.addEventListener('click', function () { setLang(b.getAttribute('data-set-lang'), true); });
+  });
+
+  var initial = 'es';
+  try {
+    var q = new URLSearchParams(location.search).get('lang');
+    var saved = localStorage.getItem('lang');
+    if (q === 'en' || q === 'es') initial = q; else if (saved === 'en' || saved === 'es') initial = saved;
+  } catch (e) {}
+  if (initial !== 'es') setLang(initial, false);
+})();
+</script>
 </body>
 </html>
