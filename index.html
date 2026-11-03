@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Frank Batista Rivas, ICQA Data Analyst: inventory accuracy and process improvement case studies.">
+<title>Frank Batista Rivas</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: single column ledger; each case study is a two-column row (site/meta rail | narrative + before→after bars). */
+:root {
+  color-scheme: light;
+  --bg: #FFFFFF;
+  --surface: #F1F6FF;
+  --ink: #0F1B2D;
+  --muted: #4A5B73;
+  --line: #D3DEEC;
+  --accent: #0B63F6;
+  --before: #C2CDDB;
+  --tape: #FFD23F;
+  --tape-ink: #0F1B2D;
+  --good: #0E9F62;
+  --wash: #FFF6CC;
+  --display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
+  --body: "Public Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+/* Single bright theme by design: stays light for every viewer. */
+* { box-sizing: border-box; }
+body { margin: 0;
+  overflow-x: hidden;
+  background: var(--bg); color: var(--ink);
+  font-family: var(--body); font-size: 16px; line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 1080px; margin: 0 auto; padding-block: 40px 72px; display: grid; gap: 72px; }
+h1, h2, h3 { font-family: var(--display); font-weight: 800; line-height: 1; margin: 0; text-wrap: balance; letter-spacing: 0.005em; }
+p { margin: 0; }
+a { color: var(--accent); }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.label { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+
+/* Hero */
+.hero { display: grid; gap: 28px; position: relative; }
+.hero::before { content: ""; position: absolute; z-index: -1; inset: -40px -100vw auto; height: calc(100% - 60px); background: linear-gradient(180deg, var(--wash), var(--bg)); }
+.tape {
+  justify-self: start; background: var(--tape); color: var(--tape-ink);
+  font-family: var(--mono); font-weight: 600; font-size: 12px; letter-spacing: 0.1em;
+  text-transform: uppercase; padding: 6px 12px; display: flex; gap: 14px; flex-wrap: wrap;
+}
+.hero h1 { font-size: clamp(56px, 11vw, 128px); text-transform: uppercase; }
+.hero h1 span { color: var(--accent); }
+.lede { font-size: clamp(18px, 2.2vw, 22px); max-width: 38ch; line-height: 1.45; }
+.meta-line { display: flex; flex-wrap: wrap; gap: 8px 22px; color: var(--muted); font-size: 15px; }
+
+.ledger {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  border-top: 2px solid var(--ink); border-bottom: 1px solid var(--line);
+}
+.ledger div { padding: 18px 16px 18px 0; display: grid; gap: 6px; align-content: start; min-width: 0; }
+.ledger div + div { padding-left: 16px; border-left: 1px solid var(--line); }
+.ledger strong { color: var(--accent); font-family: var(--display); font-size: clamp(34px, 4.6vw, 48px); line-height: 1; font-variant-numeric: tabular-nums; }
+.ledger span { font-size: 14px; color: var(--muted); line-height: 1.4; }
+@media (max-width: 720px) {
+  .ledger { grid-template-columns: 1fr 1fr; }
+  .ledger div:nth-child(3) { padding-left: 0; border-left: 0; }
+  .ledger div:nth-child(n+3) { border-top: 1px solid var(--line); }
+}
+
+/* Section heads */
+.section { display: grid; gap: 28px; }
+.section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; border-bottom: 2px solid var(--ink); padding-bottom: 10px; }
+.section-head h2 { font-size: clamp(36px, 5vw, 52px); text-transform: uppercase; }
+
+/* Case studies */
+.case { display: grid; grid-template-columns: 220px 1fr; gap: 32px; padding-bottom: 40px; border-bottom: 1px solid var(--line); }
+.case:last-child { border-bottom: 0; padding-bottom: 0; }
+.rail { display: grid; gap: 14px; align-content: start; }
+.site {
+  font-family: var(--mono); font-weight: 600; font-size: 22px; letter-spacing: 0.04em;
+  background: var(--tape); border: 2px solid var(--ink); padding: 4px 10px; justify-self: start;
+}
+.rail dl { margin: 0; display: grid; gap: 10px; }
+.rail dt { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.rail dd { margin: 0; font-size: 14px; line-height: 1.45; }
+.story { display: grid; gap: 18px; min-width: 0; }
+.story h3 { font-size: clamp(28px, 3.4vw, 38px); }
+.story p { max-width: 64ch; }
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.steps div { display: grid; gap: 4px; align-content: start; min-width: 0; }
+.steps b { font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+.steps p { font-size: 15px; line-height: 1.5; }
+@media (max-width: 760px) {
+  .case { grid-template-columns: 1fr; gap: 18px; }
+  .rail { grid-template-columns: auto 1fr; align-items: start; gap: 16px; }
+  .steps { grid-template-columns: 1fr; }
+}
+
+/* Before → after bars, drawn to scale (width = value / max of the pair) */
+.metrics { display: grid; gap: 18px; background: var(--surface); border: 1px solid var(--line); border-top: 3px solid var(--accent); padding: 18px 20px; }
+.metric { display: grid; gap: 6px; }
+.metric-head { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 14px; }
+.metric-head .delta { font-family: var(--mono); font-weight: 600; color: var(--good); font-variant-numeric: tabular-nums; }
+.bar-row { display: grid; grid-template-columns: 54px 1fr 84px; align-items: center; gap: 10px; font-family: var(--mono); font-size: 12px; font-variant-numeric: tabular-nums; }
+.bar-row .tag { color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+.bar-row .val { text-align: right; }
+.track { height: 14px; background: transparent; border-left: 1px solid var(--line); }
+.fill { height: 100%; background: var(--before); }
+.after .fill { background: var(--accent); }
+.zero .fill { width: 2px !important; background: var(--before); }
+
+/* Toolkit */
+.kit { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+.kit h3 { font-size: 24px; text-transform: uppercase; margin-bottom: 12px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; margin: 0; }
+.chips li { font-size: 14px; padding: 4px 10px; border: 1px solid var(--accent); color: var(--accent); background: var(--surface); font-weight: 500; }
+.chips li.learning { border-style: dashed; border-color: var(--muted); background: transparent; color: var(--muted); font-weight: 400; }
+.kit-note { font-size: 13px; color: var(--muted); margin-top: 10px; }
+@media (max-width: 760px) { .kit { grid-template-columns: 1fr; gap: 24px; } }
+
+/* Education */
+.edu { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.list { list-style: none; padding: 0; margin: 0; display: grid; }
+.list li { display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.list li:first-child { border-top: 1px solid var(--line); }
+.list .when { font-family: var(--mono); font-size: 13px; color: var(--muted); white-space: nowrap; }
+.list .sub { grid-column: 1 / -1; font-size: 14px; color: var(--muted); }
+.edu h3 { font-size: 24px; text-transform: uppercase; margin-bottom: 12px; }
+@media (max-width: 760px) { .edu { grid-template-columns: 1fr; } .list li { grid-template-columns: 1fr; } }
+
+footer { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; border-top: 2px solid var(--ink); padding-top: 16px; color: var(--muted); font-size: 14px; }
+@media (prefers-reduced-motion: no-preference) {
+  .fill { transform-origin: left; animation: grow 0.9s cubic-bezier(.2,.7,.2,1) both; }
+  .after .fill { animation-delay: 0.15s; }
+  @keyframes grow { from { transform: scaleX(0.02); } to { transform: scaleX(1); } }
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="tape"><span>ICQA</span><span>Inventory Control &amp; Quality Assurance</span><span>Amazon</span></div>
+    <h1>Frank<br>Batista <span>Rivas</span></h1>
+    <p class="lede">ICQA Data Analyst. I find where inventory and process data stop matching reality, then build the mechanisms that keep them matched.</p>
+    <div class="meta-line">
+      <span>Operations analytics · Root-cause analysis · KPI reporting</span>
+      <span>Six Sigma Green Belt</span>
+      <span>English / Español</span>
+    </div>
+    <div class="ledger" aria-label="Headline results">
+      <div><strong>$3.96M</strong><span>cost avoidance from a redesigned reconciliation process</span></div>
+      <div><strong>−45.7%</strong><span>GIA DPMO over two years</span></div>
+      <div><strong>99.5%</strong><span>PIT Scan compliance, up from 0%, then sustained at 100%</span></div>
+      <div><strong>750+</strong><span>associates onboarded for a new fulfillment-center launch</span></div>
+    </div>
+  </header>
+
+  <section class="section" aria-labelledby="work">
+    <div class="section-head">
+      <h2 id="work">Case studies</h2>
+      <span class="label">Problem · Mechanism · Result</span>
+    </div>
+
+    <article class="case">
+      <div class="rail">
+        <div class="site">RDU2</div>
+        <dl>
+          <div><dt>Scope</dt><dd>Site-wide inventory accuracy, cross-shift</dd></div>
+          <div><dt>Period</dt><dd>Dec 2024 onward</dd></div>
+          <div><dt>Tools</dt><dd>FC Research, Rodeo, QuickSight, Excel</dd></div>
+        </dl>
+      </div>
+      <div class="story">
+        <h3>Inventory reconciliation redesign</h3>
+        <div class="steps">
+          <div><b>Problem</b><p>Inventory losses and odd-location inventory were driving large net dollar adjustments.</p></div>
+          <div><b>Mechanism</b><p>Redesigned the reconciliation process and built partnerships across shifts so discrepancies were researched and closed consistently.</p></div>
+          <div><b>Result</b><p>About $3.96M in cost avoidance, fewer units over threshold, and a 45.7% drop in GIA DPMO over two years.</p></div>
+        </div>
+        <div class="metrics">
+          <div class="metric">
+            <div class="metric-head"><span>Net Dollar Inventory Adjustments (loss)</span><span class="delta">−80%</span></div>
+            <div class="bar-row"><span class="tag">Before</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="val">−$4.9M</span></div>
+            <div class="bar-row after"><span class="tag">After</span><div class="track"><div class="fill" style="width:19.8%"></div></div><span class="val">−$972K</span></div>
+          </div>
+          <div class="metric">
+            <div class="metric-head"><span>Inventory over threshold (units)</span><span class="delta">−31%</span></div>
+            <div class="bar-row"><span class="tag">Before</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="val">51K</span></div>
+            <div class="bar-row after"><span class="tag">After</span><div class="track"><div class="fill" style="width:68.6%"></div></div><span class="val">35K</span></div>
+          </div>
+          <div class="metric">
+            <div class="metric-head"><span>GIA DPMO, indexed to start = 100</span><span class="delta">−45.7%</span></div>
+            <div class="bar-row"><span class="tag">Start</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="val">100</span></div>
+            <div class="bar-row after"><span class="tag">2 yrs</span><div class="track"><div class="fill" style="width:54.3%"></div></div><span class="val">54.3</span></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="case">
+      <div class="rail">
+        <div class="site">RDU2</div>
+        <dl>
+          <div><dt>Scope</dt><dd>Powered industrial truck (PIT) scan compliance</dd></div>
+          <div><dt>Period</dt><dd>2025</dd></div>
+          <div><dt>Methods</dt><dd>Defect-driver analysis, standard work, coaching</dd></div>
+        </dl>
+      </div>
+      <div class="story">
+        <h3>PIT Scan Compliance Program</h3>
+        <div class="steps">
+          <div><b>Problem</b><p>No playbook existed, and compliance started at zero.</p></div>
+          <div><b>Mechanism</b><p>Built the program from the ground up: coaching materials, standardized training, and Sideline Misuse identified as the defect driver.</p></div>
+          <div><b>Result</b><p>Compliance reached 99.5% and held at 100%. The mechanism survived a leadership transition.</p></div>
+        </div>
+        <div class="metrics">
+          <div class="metric">
+            <div class="metric-head"><span>PIT Scan compliance</span><span class="delta">+99.5 pts</span></div>
+            <div class="bar-row zero"><span class="tag">Before</span><div class="track"><div class="fill" style="width:0%"></div></div><span class="val">0%</span></div>
+            <div class="bar-row after"><span class="tag">After</span><div class="track"><div class="fill" style="width:99.5%"></div></div><span class="val">99.5% → 100%</span></div>
+          </div>
+          <div class="metric">
+            <div class="metric-head"><span>Sideline Misuse metric</span><span class="delta">+16 pts</span></div>
+            <div class="bar-row"><span class="tag">Before</span><div class="track"><div class="fill" style="width:64%"></div></div><span class="val">64%</span></div>
+            <div class="bar-row after"><span class="tag">After</span><div class="track"><div class="fill" style="width:80%"></div></div><span class="val">80%</span></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="case">
+      <div class="rail">
+        <div class="site">MCI4</div>
+        <dl>
+          <div><dt>Scope</dt><dd>Kansas City fulfillment-center launch</dd></div>
+          <div><dt>Period</dt><dd>June 2026</dd></div>
+          <div><dt>Scale</dt><dd>750+ associates</dd></div>
+        </dl>
+      </div>
+      <div class="story">
+        <h3>ICQA launch support, Kansas City</h3>
+        <div class="steps">
+          <div><b>Problem</b><p>A new site needed inventory-accuracy systems in place from day one.</p></div>
+          <div><b>Mechanism</b><p>Designed tracking, reporting, cycle-count, bin-audit, exception-handling and leadership-continuity processes.</p></div>
+          <div><b>Result</b><p>Onboarded and coached 750+ associates. The operation became self-sustaining after launch support ended.</p></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="case">
+      <div class="rail">
+        <div class="site">PSP3</div>
+        <dl>
+          <div><dt>Scope</dt><dd>Desert Hot Springs site launch, Away Team</dd></div>
+          <div><dt>Period</dt><dd>October 2025</dd></div>
+          <div><dt>Methods</dt><dd>Lean, Six Sigma, Kaizen</dd></div>
+        </dl>
+      </div>
+      <div class="story">
+        <h3>Inventory-control readiness, Desert Hot Springs</h3>
+        <div class="steps">
+          <div><b>Problem</b><p>The site needed inventory control ready before launch.</p></div>
+          <div><b>Mechanism</b><p>Led cycle counts, discrepancy resolution and quality standards, and optimized workflows with Lean, Six Sigma and Kaizen.</p></div>
+          <div><b>Result</b><p>Inventory-control readiness delivered for the October 2025 launch.</p></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="case">
+      <div class="rail">
+        <div class="site">CSU-G</div>
+        <dl>
+          <div><dt>Scope</dt><dd>Academic project, systems proposal</dd></div>
+          <div><dt>Type</dt><dd>Business case &amp; financial analysis</dd></div>
+          <div><dt>Methods</dt><dd>NPV, ROI, breakeven, pilot design</dd></div>
+        </dl>
+      </div>
+      <div class="story">
+        <h3>HPS Order System, Phase II proposal</h3>
+        <div class="steps">
+          <div><b>Problem</b><p>Make the case for a new order system and a safe way to roll it out.</p></div>
+          <div><b>Mechanism</b><p>Proposed an iterative build with a limited pilot, product-owner governance, demos every two weeks and UAT before pilot. Defined monitoring for failed payments, duplicate orders, inventory mismatches, response time and checkout completion.</p></div>
+          <div><b>Result</b><p>NPV of $63,665, ROI of 45.8% and breakeven in 2.61 years.</p></div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section class="section" aria-labelledby="kit">
+    <div class="section-head">
+      <h2 id="kit">Toolkit</h2>
+      <span class="label">Dashed = currently building</span>
+    </div>
+    <div class="kit">
+      <div>
+        <h3>Data &amp; BI</h3>
+        <ul class="chips">
+          <li>SQL</li><li>Excel</li><li>Amazon QuickSight</li><li>KPI reporting</li>
+          <li class="learning">Power BI</li><li class="learning">Python</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Operations systems</h3>
+        <ul class="chips">
+          <li>Rodeo</li><li>FC Research</li><li>AWS internal tools</li><li>Cycle counts</li><li>Bin audits</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Methods</h3>
+        <ul class="chips">
+          <li>Root-cause analysis</li><li>Lean / Six Sigma</li><li>Kaizen</li><li>DPMO &amp; defect elimination</li><li>5S</li><li>Process improvement</li><li>Coaching &amp; mentorship</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="edu">
+    <div class="section-head">
+      <h2 id="edu">Education &amp; credentials</h2>
+    </div>
+    <div class="edu">
+      <div>
+        <h3>Education</h3>
+        <ul class="list">
+          <li><span>B.S. Management Information Systems &amp; Business Analytics</span><span class="when">2026 – 2028</span><span class="sub">Colorado State University Global · in progress</span></li>
+          <li><span>Undergraduate coursework</span><span class="when">Transferred</span><span class="sub">Southern New Hampshire University</span></li>
+          <li><span>IT Specialist program</span><span class="when">2022 – 2023</span><span class="sub">Berks Technical Institute</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Certifications</h3>
+        <ul class="list">
+          <li><span>Six Sigma Green Belt</span><span class="when">Certified</span></li>
+          <li><span>Certified Kaizen Event Specialist</span><span class="when">Certified</span></li>
+          <li><span>Google UX Design Professional Certificate</span><span class="when">Certified</span></li>
+          <li><span>Introduction to Computer Programming</span><span class="when">Certificate</span></li>
+          <li><span>Data Analytics, Coursera</span><span class="when">In progress</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Frank Batista Rivas · ICQA Data Analyst</span>
+    <span>Open to Business Intelligence and Data Analyst roles</span>
+  </footer>
+</div>
+</body>
+</html>
